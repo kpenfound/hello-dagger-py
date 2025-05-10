@@ -2,7 +2,7 @@ import random
 from typing import Annotated
 
 import dagger
-from dagger import DefaultPath, Directory, Doc, Secret, Optional, dag, function, object_type
+from dagger import DefaultPath, Directory, Doc, Secret, dag, function, object_type
 
 
 @object_type
@@ -111,7 +111,7 @@ class HelloDagger:
         ],
         issue_id: Annotated[int, Doc("Github issue number")],
         repository: Annotated[str, Doc("Github repository url")],
-        source: Optional[Annotated[Directory, Doc("The source directory")]] = None,
+        source: Annotated[dagger.Directory, DefaultPath("/")],
     ) -> str:
         """Develop with a Github issue as the assignment and open a pull request."""
         # Get the Github issue
