@@ -1,14 +1,14 @@
 from typing import Annotated
 
 import dagger
-from dagger import Doc, dag, function, object_type
+from dagger import Doc, dag, field, function, object_type
 
 
 @object_type
 class Workspace:
     """A module for editing code"""
 
-    source: dagger.Directory
+    source: Annotated[dagger.Directory, Doc("the workspace source code")] = field()
 
     @function
     async def read_file(
@@ -39,11 +39,6 @@ class Workspace:
             .with_exec(["tree", "./src"])
             .stdout()
         )
-
-    @function
-    def get_source(self) -> dagger.Directory:
-        """Get the source code directory from the Workspace"""
-        return self.source
 
     @function
     async def test(

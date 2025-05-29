@@ -95,7 +95,7 @@ class HelloDagger:
 
         # Get the output from the agent
         completed = work.env().output("completed").as_workspace()
-        completed_directory = completed.get_source().without_directory("node_modules")
+        completed_directory = completed.source().without_directory("node_modules")
 
         # Make sure the tests really pass
         await self.test(completed_directory)
