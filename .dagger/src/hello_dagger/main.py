@@ -73,14 +73,14 @@ class HelloDagger:
         """A coding agent for developing new features."""
         # Environment with agent inputs and outputs
         environment = (
-            dag.env(privileged=True)
+            dag.env()
             .with_string_input(
                 "assignment", assignment, "the assignment to complete"
             )
             .with_workspace_input(
                 "workspace",
                 dag.workspace(source),
-                "the workspace with tools to edit code",
+                "the workspace with tools to edit and test code",
             )
             .with_workspace_output(
                 "completed", "the workspace with the completed assignment"
