@@ -41,9 +41,7 @@ class Workspace:
         )
 
     @function
-    async def test(
-        self,
-    ) -> str:
+    async def test(self) -> str:
         """Return the result of running unit tests"""
         node_cache = dag.cache_volume("node")
         return await (

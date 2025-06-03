@@ -51,7 +51,7 @@ class HelloDagger:
     @function
     def build_env(
         self,
-        source: Annotated[dagger.Directory, DefaultPath("/")],
+        source: Annotated[dagger.Directory, DefaultPath("/"), Doc("hello-dagger source directory")],
     ) -> dagger.Container:
         """Build a ready-to-use development environment"""
         node_cache = dag.cache_volume("node")
