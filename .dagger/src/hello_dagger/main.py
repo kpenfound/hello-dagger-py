@@ -51,7 +51,7 @@ class HelloDagger:
     @function
     def build_env(
         self,
-        source: Annotated[dagger.Directory, DefaultPath("/")],
+        source: Annotated[dagger.Directory, DefaultPath("/"), Doc("hello-dagger source directory")],
     ) -> dagger.Container:
         """Build a ready-to-use development environment"""
         node_cache = dag.cache_volume("node")
@@ -73,14 +73,14 @@ class HelloDagger:
         """A coding agent for developing new features."""
         # Environment with agent inputs and outputs
         environment = (
-            dag.env(privileged=True)
+            dag.env()
             .with_string_input(
                 "assignment", assignment, "the assignment to complete"
             )
             .with_workspace_input(
                 "workspace",
                 dag.workspace(source),
-                "the workspace with tools to edit code",
+                "the workspace with tools to edit and test code",
             )
             .with_workspace_output(
                 "completed", "the workspace with the completed assignment"
@@ -95,7 +95,7 @@ class HelloDagger:
 
         # Get the output from the agent
         completed = work.env().output("completed").as_workspace()
-        completed_directory = completed.get_source().without_directory("node_modules")
+        completed_directory = completed.source().without_directory("node_modules")
 
         # Make sure the tests really pass
         await self.test(completed_directory)
